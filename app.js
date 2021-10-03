@@ -39,7 +39,14 @@ app.use(
 );
 
 app.get("/", (req, res, next) => {
-  res.send("<h1>Application runnig!</h1>");
+  if (req.session.viewCount) {
+    req.session.viewCount++;
+  } else {
+    req.session.viewCount = 1;
+  }
+  res.send(
+    `<h1>You have visited this pagae ${req.session.viewCount} times.</h1>`
+  );
 });
 
 app.listen(3000);
